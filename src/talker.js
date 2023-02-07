@@ -24,6 +24,11 @@ const archive = async () => {
     return talkers;
   };
 
+const getTalkerById = async (id) => {
+    const talkers = await archive();
+    return talkers.find((user) => user.id === id);
+};
   module.exports = {
     getAllTalkers,
+    getTalkerById,
     };
