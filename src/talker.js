@@ -31,4 +31,5 @@ const getTalkerById = async (id) => {
   module.exports = {
     getAllTalkers,
     getTalkerById,
+    
     };
