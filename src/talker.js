@@ -19,7 +19,20 @@ const archive = async () => {
     }
   };
 
-  const getAllTalkers = async () => {
+const saveUser = async (newTalker) => {
+    const path = '/talker.json';
+    try {
+      const contentFile = await archive();
+      console.log(archive);
+      contentFile.push(newTalker);
+      return await fs.writeFile(join(__dirname, path), JSON.stringify(contentFile));
+    } catch (error) {
+        console.log(error);
+      return null;
+    }
+  };
+
+const getAllTalkers = async () => {
     const talkers = await archive();
     return talkers;
   };
@@ -28,8 +41,9 @@ const getTalkerById = async (id) => {
     const talkers = await archive();
     return talkers.find((user) => user.id === id);
 };
+
   module.exports = {
     getAllTalkers,
     getTalkerById,
-    
+    saveUser,
     };
