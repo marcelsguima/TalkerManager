@@ -35,18 +35,21 @@ app.get('/talker', async (req, res) => {
     res.status(200).json(allTalkers);
 });
 
-// app.put('/talker/:id', 
-// validateToken,
-// validateName,
-// validateAge,
-// validateTalk,
-// validateRate,
-//  async (req, res) => {
-//   const { id } = req.params;
-
-//   await talkers.saveUser((newTalker));
-//  return res.status(201).json(newTalker);  
-// });
+app.put('/talker/:id', 
+validateToken,
+validateName,
+validateAge,
+validateTalk,
+validateRate,
+ async (req, res) => {
+  const { id } = req.params;
+  const { name, age, talk: { watchedAt, rate } } = req.body;
+  const editedUser = { name, age, talk: { watchedAt, rate }, id: Number(id) };
+  await talkers.saveUser((editedUser));
+  console.log(editedUser);
+  
+ return res.status(200).json(editedUser);  
+});
 
 app.get('/talker/:id', async (req, res) => {
   const { id } = req.params;
