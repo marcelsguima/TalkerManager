@@ -42,8 +42,22 @@ const getTalkerById = async (id) => {
     return talkers.find((user) => user.id === id);
 };
 
+const deleteTalker = async (id) => {
+  const path = '/talker.json';
+    const allTalkers = await archive();
+    console.log('id', typeof id, id);
+    const delTalker = allTalkers.findIndex((user) => user.id === Number(id));
+    console.log('del talker', delTalker);
+    if (delTalker === -1) {
+      throw new Error(`Palestrante com id ${id} não encontrado`);
+    }
+    allTalkers.splice(delTalker, 1);
+    console.log('allTalkers', allTalkers);
+    await fs.writeFile(join(__dirname, path), JSON.stringify(allTalkers));
+};
   module.exports = {
     getAllTalkers,
     getTalkerById,
     saveUser,
+    deleteTalker,
     };

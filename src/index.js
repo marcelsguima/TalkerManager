@@ -17,6 +17,14 @@ app.get('/talker', async (req, res) => {
   res.status(200).json(allTalkers);
 });
 
+app.delete('/talker/:id', validateToken, async (req, res) => {
+  const { id } = req.params;
+  const delTalker = await talkers.deleteTalker(id);
+  console.log(delTalker);
+
+    res.status(204).json();
+});
+
 app.post('/talker', 
 validateToken,
 validateName,
@@ -30,11 +38,6 @@ validateRate,
  return res.status(201).json(newTalker);  
 });
 
-app.get('/talker', async (req, res) => {
-  const allTalkers = await talkers.getAllTalkers();
-    res.status(200).json(allTalkers);
-});
-
 app.put('/talker/:id', 
 validateToken,
 validateName,
@@ -46,8 +49,6 @@ validateRate,
   const { name, age, talk: { watchedAt, rate } } = req.body;
   const editedUser = { name, age, talk: { watchedAt, rate }, id: Number(id) };
   await talkers.saveUser((editedUser));
-  console.log(editedUser);
-  
  return res.status(200).json(editedUser);  
 });
 
